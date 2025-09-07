@@ -19,7 +19,7 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       libreoffice # Office suite
-      darktable # photo editor
+      #darktable # photo editor TODO enable when build instructions are fixed
       blender-hip # blender w/ hip support
       insomnia # HTTP client for API testing
       krita # Digital painting software

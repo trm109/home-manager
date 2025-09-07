@@ -38,9 +38,29 @@ in
         xfce.thunar-archive-plugin # Archive plugin for Thunar
         xfce.thunar-volman # Volume management for Thunar
       ];
+      qt = {
+        enable = true;
+        platformTheme.name = "gtk";
+      };
+      gtk = {
+        enable = true;
+        theme = {
+          name = "rose-pine";
+          package = pkgs.rose-pine-gtk-theme;
+        };
+        iconTheme = {
+          name = "oomox-rose-pine";
+          package = pkgs.rose-pine-icon-theme;
+        };
+      };
       programs = {
-        kitty = {
-          enable = true; # Terminal emulator
+        ghostty = {
+          enable = true;
+          settings = {
+            theme = "catppuccin-mocha";
+            font-size = 12;
+            font-family = "ComicShannsMono Nerd Font";
+          };
         };
         librewolf = {
           enable = true; # Firefox fork with privacy enhancements

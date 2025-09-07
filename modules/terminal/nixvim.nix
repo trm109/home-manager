@@ -30,19 +30,23 @@ in
           };
         };
         colorschemes = {
-          catppuccin.enable = true;
+          catppuccin = {
+            enable = true;
+          };
         };
         # userCommands = {};
         # diagnostics = {};
         # enableMan = true;
         editorconfig = {
-          enable = true;
+          enable = true; # EditorConfig support, looks for .editorconfig files
         };
         # filetype = {};
         opts = {
           number = true;
           relativenumber = true;
-          tabstop = 4; # annoying to have to set this every time
+          tabstop = 2;
+          shiftwidth = 2; # 0 means use tabstop
+          expandtab = false;
 
           #nvim-ufo
           foldcolumn = "auto:1";
@@ -85,6 +89,16 @@ in
         ];
         # keymapsOnEvents = {};
         # luaLoader = {};
+        lsp = {
+          servers = {
+            biome.enable = true; # JS, TS, json, css, html, etc.
+            nil_ls.enable = true; # nix
+            yamlls.enable = true; # yaml
+          };
+          #luaConfig = {
+          #  pre = "vim.lsp.set_log_level('debug')";
+          #};
+        };
         # performance = {};
         plugins = {
           # Good folding for nix!
@@ -132,10 +146,6 @@ in
               };
             };
           };
-          # Attempt to assume indentation style.
-          guess-indent = {
-            enable = true;
-          };
           # Lightweight yet powerful formatter plugin for Neovim
           conform-nvim = {
             # https://github.com/stevearc/conform.nvim
@@ -178,9 +188,7 @@ in
           };
 
           # Language Server Protocol support for Neovim
-          lsp = {
-            enable = true;
-          };
+          lspconfig.enable = true;
           # Adds browser-style tabs to the top
           bufferline = {
             enable = true;
@@ -284,6 +292,10 @@ in
                 auto_trigger = true;
               };
             };
+          };
+          # guess indent
+          guess-indent = {
+            enable = true;
           };
           # whichkey
           which-key = {

@@ -52,6 +52,7 @@ in
           };
         }
       ))
+      keyd # gives access to the userspace keyd tool "keyd-application-mapper", allows for application based remapping in userspace. Can be a security risk.
     ];
 
     programs = {

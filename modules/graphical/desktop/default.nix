@@ -27,6 +27,7 @@ in
       home = {
         packages = with pkgs; [
           hyprshot # Screenshot tool for Hyprland
+          brightnessctl # Screen brightness control
           #upower # TODO laptop only
         ];
         sessionVariables = {
@@ -34,7 +35,7 @@ in
           HYPRCURSOR_THEME = "rose-pine-hyprcursor"; # Set cursor theme
           DXVK_HDR = 1;
           ENABLE_HDR_WSI = 1;
-          WAYLAND_DISPLAY = "wayland-0"; # Set Wayland display
+          #WAYLAND_DISPLAY = "wayland-0"; # Set Wayland display
         };
       };
       wayland.windowManager.hyprland = {
@@ -42,6 +43,9 @@ in
         xwayland.enable = true; # Enable XWayland for compatibility with X11 applications
         plugins = [ ];
         settings = {
+          experimental = {
+            xx_color_management_v4 = true; # Enable experimental color management
+          };
           exec-once = [
             #"${pkgs.hyprpaper}/bin/hyprpaper" # Wallpaper manager for Hyprland
             #"${pkgs.hyprpanel}/bin/hyprpanel" # Panel for Hyprland
@@ -51,7 +55,8 @@ in
           ];
           monitor = [
             ", highres, auto, 1"
-            "desc:AOC Q27G3XMN 1APQAJA001629, 2560x1440@180, 0x0, 1, bitdepth, 10, cm, hdr, sdrbrightness, 1.6, sdrsaturation, 1.2"
+            "desc:AOC Q27G3XMN 1APQAJA001629, 2560x1440@180, 0x0, 1, bitdepth, 10, cm, hdr, sdrbrightness, 1.4, sdrsaturation, 1"
+            #"desc:AOC Q27G3XMN 1APQAJA001629, 2560x1440@180, 0x0, 1, bitdepth, 10"
             "desc:AOC U34G2G4R3 0x000045A1, 3440x1440@144, auto-right, 1, bitdepth, 10, cm, hdr, sdrbrightness, 1.4, sdrsaturation, 1"
           ];
           general = {
@@ -98,7 +103,7 @@ in
           bind = [
             "$mainMod, S, exec, ${pkgs.hyprshot}/bin/hyprshot -m output" # sc entire screen
             "$mainMod SHIFT, S, exec, ${pkgs.hyprshot}/bin/hyprshot -m region" # sc region
-            "$mainMod, K, exec, ${pkgs.kitty}/bin/kitty"
+            "$mainMod, K, exec, ${pkgs.ghostty}/bin/ghostty"
             "$mainMod, L, exec, ${pkgs.hyprlock}/bin/hyprlock"
             "$mainMod, Q, killactive"
             "$mainMod, V, togglefloating"
@@ -142,6 +147,60 @@ in
         };
         hyprpanel = {
           enable = true;
+          # theme = {
+          #   # https://github.com/Jas-SinghFSU/HyprPanel/blob/2c0c66a8ddcdff69b2ff694fefbcd8df4387a9e7/themes/catppuccin_mocha_vivid.json
+          # };
+          settings = {
+            menus = {
+              clock = {
+                weather.enabled = false;
+              };
+              dashboard = {
+                directories.enabled = false;
+                shortcuts.enabled = false;
+                controls.enabled = false;
+              };
+            };
+            theme = {
+              osd = {
+                orientation = "horizontal";
+                location = "bottom";
+              };
+              font = {
+                name = "GeistMono Nerd Font";
+                #style = "Bold";
+                label = "GeistMono Nerd Font Bold";
+                weight = 600;
+                size = "1rem";
+              };
+              bar = {
+                transparent = true;
+              };
+            };
+            bar = {
+              launcher.icon = " ";
+              workspaces = {
+                show_numbered = true;
+              };
+              layouts = {
+                "*" = {
+                  left = [
+                    "dashboard"
+                    "clock"
+                    "windowtitle"
+                  ];
+                  middle = [ "workspaces" ];
+                  right = [
+                    "volume"
+                    "network"
+                    "bluetooth"
+                    "notifications"
+                    "systray"
+                  ];
+                };
+              };
+            };
+          };
         };
         cava = {
           enable = true; # Audio visualizer
@@ -150,12 +209,54 @@ in
       services = {
         hyprpaper = {
           enable = true;
+          settings = {
+            #preload = /home/saik/Pictures/HDR/crater_town_3440x1440.jpg
+            #preload = /home/saik/Pictures/HDR/crater_town_2560x1440.jpg
+            #
+            #wallpaper = desc:AOC Q27G3XMN, /home/saik/Pictures/HDR/crater_town_2560x1440.jpg
+            #wallpaper = desc:AOC U34G2G4R3, /home/saik/Pictures/HDR/crater_town_3440x1440.jpg
+            preload = [
+              "/home/saik/.config/home-manager/assets/wallpapers/crater_town_2560x1440.jpg"
+              "/home/saik/.config/home-manager/assets/wallpapers/crater_town_3440x1440.jpg"
+            ];
+            wallpaper = [
+              "desc:AOC Q27G3XMN, /home/saik/.config/home-manager/assets/wallpapers/crater_town_2560x1440.jpg"
+              "desc:AOC U34G2G4R3, /home/saik/.config/home-manager/assets/wallpapers/crater_town_3440x1440.jpg"
+            ];
+          };
         };
         hyprpolkitagent = {
           enable = true; # Polkit agent for Hyprland
         };
         hypridle = {
           enable = true; # Hyprland idle detection
+          settings = {
+            general = {
+              lock_cmd = "pidof hyprlock || hyprlock";
+              before_sleep_cmd = "loginctl lock-session";
+              after_sleep_cmd = "hyprctl dispatch dpms on";
+            };
+            listener = [
+              {
+                timeout = 300; # 5 minutes
+                on-timeout = "brightnessctl -s set 10";
+                on-resume = "brightnessctl -r";
+              }
+              {
+                timeout = 600; # 10 minutes
+                on-timeout = "loginctl lock-session";
+              }
+              {
+                timeout = 900; # 15 minutes
+                on-timeout = "hyprctl dispatch dpms off";
+                on-resume = "hyprctl dispatch dpms on";
+              }
+              {
+                timeout = 1800; # 30 minutes
+                on-timeout = "systemctl suspend";
+              }
+            ];
+          };
         };
       };
     })
