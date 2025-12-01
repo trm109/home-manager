@@ -21,7 +21,7 @@ in
       libreoffice # Office suite
       #darktable # photo editor TODO enable when build instructions are fixed
       blender-hip # blender w/ hip support
-      insomnia # HTTP client for API testing
+      #insomnia # HTTP client for API testing
       krita # Digital painting software
       inkscape # Vector graphics editor
     ];

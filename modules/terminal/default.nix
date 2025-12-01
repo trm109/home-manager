@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   cfg = config.modules.terminal;
 in
@@ -15,6 +20,7 @@ in
   config = lib.mkIf cfg.enable {
     modules.terminal.nixvim.enable = true;
     home.packages = with pkgs; [
+      unrar
       unzip
       btop
       tre-command

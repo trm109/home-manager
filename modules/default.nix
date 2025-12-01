@@ -10,6 +10,8 @@
     ibm-plex
     noto-fonts-color-emoji
     nerd-fonts.jetbrains-mono
+    liberation_ttf # fallback, proton wants??
+    corefonts
   ];
   fonts.fontconfig = {
     enable = true;

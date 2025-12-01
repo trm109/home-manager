@@ -19,14 +19,17 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       #steam-run # script for running Steam games
+      wl-crosshair
       protonup-qt # GUI for managing Proton versions
-      (vintagestory.overrideAttrs rec {
-        version = "1.20.10";
-        src = pkgs.fetchurl {
-          url = "https://cdn.vintagestory.at/gamefiles/stable/vs_client_linux-x64_${version}.tar.gz";
-          hash = "sha256-AMXnq6fy1AtwmdhuuEawlWIyS4kq10HkgxnqgArqWR4=";
-        };
-      })
+      vintagestory # Vintage Story game
+      teamspeak6-client
+      #(vintagestory.overrideAttrs rec {
+      #  version = "1.21.4";
+      #  src = pkgs.fetchurl {
+      #    url = "https://cdn.vintagestory.at/gamefiles/stable/vs_client_linux-x64_1.21.4.tar.gz";
+      #    hash = lib.fakeHash;
+      #  };
+      #})
       goverlay # mangohud configuration tool
       (prismlauncher.override {
         jdks = [
@@ -35,23 +38,23 @@ in
           jdk21
         ];
       })
-      (r2modman.overrideAttrs (
-        let
-          src = pkgs.fetchFromGitHub {
-            owner = "ebkr";
-            repo = "r2modmanPlus";
-            rev = "59c1fe5287593eb58b4ce6d5d8f2ca59ca64bfd4";
-            hash = "sha256-1b24tclqXGx85BGFYL9cbthLScVWau2OmRh9YElfCLs=";
-          };
-        in
-        {
-          inherit src;
-          offlineCache = pkgs.fetchYarnDeps {
-            yarnLock = "${src}/yarn.lock";
-            hash = "sha256-3SMvUx+TwUmOur/50HDLWt0EayY5tst4YANWIlXdiPQ=";
-          };
-        }
-      ))
+      #(r2modman.overrideAttrs (
+      #  let
+      #    src = pkgs.fetchFromGitHub {
+      #      owner = "ebkr";
+      #      repo = "r2modmanPlus";
+      #      rev = "59c1fe5287593eb58b4ce6d5d8f2ca59ca64bfd4";
+      #      hash = "sha256-1b24tclqXGx85BGFYL9cbthLScVWau2OmRh9YElfCLs=";
+      #    };
+      #  in
+      #  {
+      #    inherit src;
+      #    offlineCache = pkgs.fetchYarnDeps {
+      #      yarnLock = "${src}/yarn.lock";
+      #      hash = "sha256-3SMvUx+TwUmOur/50HDLWt0EayY5tst4YANWIlXdiPQ=";
+      #    };
+      #  }
+      #))
       keyd # gives access to the userspace keyd tool "keyd-application-mapper", allows for application based remapping in userspace. Can be a security risk.
     ];
 

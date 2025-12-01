@@ -55,14 +55,32 @@ in
           ];
           monitor = [
             ", highres, auto, 1"
-            "desc:AOC Q27G3XMN 1APQAJA001629, 2560x1440@180, 0x0, 1, bitdepth, 10, cm, hdr, sdrbrightness, 1.4, sdrsaturation, 1"
+            "desc:AOC Q27G3XMN 1APQAJA001629, 2560x1440@180, auto-right, 1, bitdepth, 10, cm, hdr, sdrbrightness, 1.4, sdrsaturation, 1"
             #"desc:AOC Q27G3XMN 1APQAJA001629, 2560x1440@180, 0x0, 1, bitdepth, 10"
-            "desc:AOC U34G2G4R3 0x000045A1, 3440x1440@144, auto-right, 1, bitdepth, 10, cm, hdr, sdrbrightness, 1.4, sdrsaturation, 1"
+            "desc:AOC U34G2G4R3 0x000045A1, 3440x1440@144, 0x0, 1, bitdepth, 10, cm, hdr, sdrbrightness, 1.4, sdrsaturation, 1"
+            "desc:Hisense Electric Co. Ltd. HISENSE 0x00000001, 1920x1080@60, auto-down, 1"
+          ];
+          workspace = [
+            "2, monitor:desc:AOC Q27G3XMN, default:true"
+            "1, monitor:desc:AOC U34G2G4R3, default:true"
+            "name:bedroom, monitor:desc:Hisense Electric Co. Ltd. HISENSE 0x00000001, default:true, gapsout:35"
+          ];
+          windowrule = [
+            "noinitialfocus, class:steam"
+            #"float, class:(steam_app_.*)"
+            #"float, title:(Steam Big Picture Mode)"
+            #  "workspace 1, class:(steam_app_.*)"
+            #  "workspace 1, title:(Steam Big Picture Mode)"
+            #  "fullscreen, title:(Steam Big Picture Mode)"
+            #  "stayfocused, title:(Steam Big Picture Mode)"
           ];
           general = {
             gaps_in = 4;
             gaps_out = 4;
             border_size = 2;
+          };
+          debug = {
+            full_cm_proto = true;
           };
           decoration = {
             rounding = 10;
@@ -92,6 +110,8 @@ in
           bindl = [
             ", XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle && notify-send 'Toggled Mic: $(pactl get-source-mute @DEFAULT_SOURCE@)' -h string:x-canonical-private-synchronous:microphone_muted"
             ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle && notify-send 'Volume Muted' -h string:x-canonical-private-synchronous:volume_muted"
+            ", KP_Subtract, exec, hyprctl keyword cursor:zoom_factor 1"
+            ", KP_Add, exec, hyprctl keyword cursor:zoom_factor 2"
           ];
           bindr = [
             "SUPER, SUPER_L, exec, ${pkgs.busybox}/bin/pkill ${pkgs.fuzzel}/bin/fuzzel || ${pkgs.fuzzel}/bin/fuzzel"
@@ -123,6 +143,7 @@ in
             "$mainMod, 8, workspace, 8"
             "$mainMod, 9, workspace, 9"
             "$mainMod, 0, workspace, 10"
+            "$mainMod, C, workspace, name:bedroom"
             "$mainMod SHIFT, 1, movetoworkspace, 1"
             "$mainMod SHIFT, 2, movetoworkspace, 2"
             "$mainMod SHIFT, 3, movetoworkspace, 3"
@@ -133,6 +154,7 @@ in
             "$mainMod SHIFT, 8, movetoworkspace, 8"
             "$mainMod SHIFT, 9, movetoworkspace, 9"
             "$mainMod SHIFT, 0, movetoworkspace, 10"
+            "$mainMod SHIFT, C, movetoworkspace, name:bedroom"
             "$mainMod, mouse_down, workspace, e+1"
             "$mainMod, mouse_up, workspace, e-1"
           ];
