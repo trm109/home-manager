@@ -133,6 +133,7 @@ in
             "$mainMod, up, movefocus, u"
             "$mainMod, down, movefocus, d"
             "$mainMod, F, fullscreen"
+            "Alt SHIFT, F, fullscreenstate, 0 3"
             "$mainMod, 1, workspace, 1"
             "$mainMod, 2, workspace, 2"
             "$mainMod, 3, workspace, 3"
