@@ -23,6 +23,12 @@ in
       protonup-qt # GUI for managing Proton versions
       vintagestory # Vintage Story game
       teamspeak6-client
+      steamtinkerlaunch
+      xdotool
+      xorg.xprop
+      unixtools.xxd
+      xorg.xwininfo
+      yad
       #(vintagestory.overrideAttrs rec {
       #  version = "1.21.4";
       #  src = pkgs.fetchurl {

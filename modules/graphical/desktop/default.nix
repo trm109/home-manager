@@ -57,7 +57,8 @@ in
             ", highres, auto, 1"
             "desc:AOC Q27G3XMN 1APQAJA001629, 2560x1440@180, auto-right, 1, bitdepth, 10, cm, hdr, sdrbrightness, 1.4, sdrsaturation, 1"
             #"desc:AOC Q27G3XMN 1APQAJA001629, 2560x1440@180, 0x0, 1, bitdepth, 10"
-            "desc:AOC U34G2G4R3 0x000045A1, 3440x1440@144, 0x0, 1, bitdepth, 10, cm, hdr, sdrbrightness, 1.4, sdrsaturation, 1"
+            # "desc:AOC U34G2G4R3 0x000045A1, 3440x1440@144, 0x0, 1, bitdepth, 10, cm, hdr, sdrbrightness, 1.4, sdrsaturation, 1"
+            "desc:AOC U34G2G4R3 0x000045A1, 3440x1440@144, 0x0, 1"
             "desc:Hisense Electric Co. Ltd. HISENSE 0x00000001, 1920x1080@60, auto-down, 1"
           ];
           workspace = [

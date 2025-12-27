@@ -33,7 +33,7 @@ in
         #stremio # Video player & Torrent
         #cheese # Simple webcam viewer
         kdePackages.filelight # Disk Usage analyzer
-        bitwarden # Password manager
+        bitwarden-desktop # Password manager
         xfce.thunar # graphical file manager
         xfce.thunar-archive-plugin # Archive plugin for Thunar
         xfce.thunar-volman # Volume management for Thunar
@@ -65,10 +65,10 @@ in
         librewolf = {
           enable = true; # Firefox fork with privacy enhancements
         };
-        #chromium = {
-        #  enable = true; # Chromium browser
-        #  package = pkgs.ungoogled-chromium; # Use ungoogled-chromium
-        #};
+        chromium = {
+          enable = true; # Chromium browser
+          package = pkgs.ungoogled-chromium; # Use ungoogled-chromium
+        };
         mpv = {
           enable = true; # Media player
         };
