@@ -19,6 +19,7 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       #steam-run # script for running Steam games
+      nwjs
       wl-crosshair
       protonup-qt # GUI for managing Proton versions
       vintagestory # Vintage Story game

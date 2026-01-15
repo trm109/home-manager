@@ -24,6 +24,7 @@ in
       #insomnia # HTTP client for API testing
       krita # Digital painting software
       inkscape # Vector graphics editor
+      discord
     ];
     programs = {
       obs-studio = {
