@@ -43,9 +43,9 @@ in
         xwayland.enable = true; # Enable XWayland for compatibility with X11 applications
         plugins = [ ];
         settings = {
-          experimental = {
-            xx_color_management_v4 = true; # Enable experimental color management
-          };
+          # experimental = {
+          #   xx_color_management_v4 = true; # Enable experimental color management
+          # };
           exec-once = [
             #"${pkgs.hyprpaper}/bin/hyprpaper" # Wallpaper manager for Hyprland
             #"${pkgs.hyprpanel}/bin/hyprpanel" # Panel for Hyprland
@@ -67,7 +67,12 @@ in
             "name:bedroom, monitor:desc:Hisense Electric Co. Ltd. HISENSE 0x00000001, default:true, gapsout:35"
           ];
           windowrule = [
-            "noinitialfocus, class:steam"
+            # Prevent Steam from stealing focus when it decides to open 10 windows randomly.
+            "no_initial_focus on, match:class steam"
+            # Performance tweaks
+            "match:title .*\.exe, immediate on"
+            "match:title .*minecraft.*, immediate on"
+            "match:class ^(steam_app).*, immediate on"
             #"float, class:(steam_app_.*)"
             #"float, title:(Steam Big Picture Mode)"
             #  "workspace 1, class:(steam_app_.*)"
@@ -79,12 +84,19 @@ in
             gaps_in = 4;
             gaps_out = 4;
             border_size = 2;
+            allow_tearing = true; # Allows screen tearing for certain applications.
           };
           debug = {
             full_cm_proto = true;
           };
           decoration = {
             rounding = 10;
+            blur = {
+              enabled = false;
+            };
+            shadow = {
+              enabled = false;
+            };
           };
           input = {
             kb_layout = "us"; # Set keyboard layout
@@ -98,7 +110,8 @@ in
             vfr = true;
             vrr = 1;
             focus_on_activate = true; # Focus on window when activated
-            new_window_takes_over_fullscreen = 2;
+            key_press_enables_dpms = true; # wake monitor on key press
+            # new_window_takes_over_fullscreen = 2;
           };
           render = {
             direct_scanout = 2;
