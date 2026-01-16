@@ -318,64 +318,6 @@ in
           # Cursor-like ai promopt
           avante = {
             enable = true;
-            package = pkgs.vimPlugins.avante-nvim.overrideAttrs {
-              version = "main";
-              src = pkgs.fetchFromGitHub {
-                owner = "yetone";
-                repo = "avante.nvim";
-                rev = "1c8cac1958cdf04b65942f23fa5a14cc4cfae44e";
-                hash = "sha256-UXt8c2esrAE9SzaQGRGZ4hdkKsYuo1Ftvn+JR80W15I=";
-              };
-              nvimSkipModule = [
-                "avante.providers.ollama"
-                "avante.providers.vertex_claude"
-                "avante.providers.azure"
-                "avante.providers.copilot"
-              ];
-              postInstall =
-                let
-                  ext = pkgs.stdenv.hostPlatform.extensions.sharedLibrary;
-                  avante-nvim-lib = pkgs.rustPlatform.buildRustPackage {
-                    pname = "avante-nvim-lib";
-                    version = "main";
-                    src = pkgs.fetchFromGitHub {
-                      owner = "yetone";
-                      repo = "avante.nvim";
-                      rev = "1c8cac1958cdf04b65942f23fa5a14cc4cfae44e";
-                      sha256 = "sha256-UXt8c2esrAE9SzaQGRGZ4hdkKsYuo1Ftvn+JR80W15I=";
-                    };
-
-                    useFetchCargoVendor = true;
-                    cargoHash = "sha256-pmnMoNdaIR0i+4kwW3cf01vDQo39QakTCEG9AXA86ck=";
-
-                    nativeBuildInputs = [
-                      pkgs.pkg-config
-                      pkgs.perl
-                    ];
-
-                    buildInputs = [
-                      pkgs.openssl
-                      pkgs.perl
-                    ];
-
-                    buildFeatures = [ "luajit" ];
-
-                    checkFlags = [
-                      "--skip=test_hf"
-                      "--skip=test_public_url"
-                      "--skip=test_roundtrip"
-                      "--skip=test_fetch_md"
-                    ];
-                  };
-                in
-                ''
-                  mkdir -p $out/build
-                  ln -s ${avante-nvim-lib}/lib/libavante_repo_map${ext} $out/build/avante_repo_map${ext}
-                  ln -s ${avante-nvim-lib}/lib/libavante_templates${ext} $out/build/avante_templates${ext}
-                  ln -s ${avante-nvim-lib}/lib/libavante_tokenizers${ext} $out/build/avante_tokenizers${ext}
-                  ln -s ${avante-nvim-lib}/lib/libavante_html2md${ext} $out/build/avante_html2md${ext}
-                '';
-            };
             settings = {
               provider = "ollama";
               ollama = {
