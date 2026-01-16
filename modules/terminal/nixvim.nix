@@ -316,19 +316,19 @@ in
             enable = true;
           };
           # Cursor-like ai promopt
-          avante = {
-            enable = true;
-            settings = {
-              provider = "ollama";
-              ollama = {
-                endpoint = "localhost:11434";
-                model = "qwen2.5-coder:3b";
-                #options = {
-                #  num_ctx = 16384;
-                #};
-              };
-            };
-          };
+          # avante = {
+          #   enable = true;
+          #   settings = {
+          #     provider = "ollama";
+          #     ollama = {
+          #       endpoint = "localhost:11434";
+          #       model = "qwen2.5-coder:3b";
+          #       #options = {
+          #       #  num_ctx = 16384;
+          #       #};
+          #     };
+          #   };
+          # };
         };
         extraPlugins = [
           # Line number toggles
