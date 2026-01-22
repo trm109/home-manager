@@ -45,6 +45,7 @@ in
           jdk21
         ];
       })
+      r2modman
       #(r2modman.overrideAttrs (
       #  let
       #    src = pkgs.fetchFromGitHub {
