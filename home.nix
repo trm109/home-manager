@@ -11,6 +11,8 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = [
     "dotnet-runtime-7.0.20"
+    "librewolf-bin-147.0.3-2"
+    "librewolf-bin-unwrapped-147.0.3-2"
   ];
 
   # This value determines the Home Manager release that your configuration is

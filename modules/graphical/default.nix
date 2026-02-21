@@ -29,14 +29,13 @@ in
     (lib.mkIf cfg.enable {
 
       home.packages = with pkgs; [
-        #webcord-vencord # Discord client
         #stremio # Video player & Torrent
         #cheese # Simple webcam viewer
         kdePackages.filelight # Disk Usage analyzer
         bitwarden-desktop # Password manager
-        xfce.thunar # graphical file manager
-        xfce.thunar-archive-plugin # Archive plugin for Thunar
-        xfce.thunar-volman # Volume management for Thunar
+        thunar # graphical file manager
+        thunar-archive-plugin # Archive plugin for Thunar
+        thunar-volman # Volume management for Thunar
       ];
       qt = {
         enable = true;
@@ -64,11 +63,12 @@ in
         };
         librewolf = {
           enable = true; # Firefox fork with privacy enhancements
+          package = pkgs.librewolf-bin;
         };
-        chromium = {
-          enable = true; # Chromium browser
-          package = pkgs.ungoogled-chromium; # Use ungoogled-chromium
-        };
+        # chromium = {
+        #   enable = true; # Chromium browser
+        #   package = pkgs.ungoogled-chromium; # Use ungoogled-chromium
+        # };
         mpv = {
           enable = true; # Media player
         };

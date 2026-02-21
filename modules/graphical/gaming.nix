@@ -46,23 +46,16 @@ in
         ];
       })
       r2modman
-      #(r2modman.overrideAttrs (
-      #  let
-      #    src = pkgs.fetchFromGitHub {
-      #      owner = "ebkr";
-      #      repo = "r2modmanPlus";
-      #      rev = "59c1fe5287593eb58b4ce6d5d8f2ca59ca64bfd4";
-      #      hash = "sha256-1b24tclqXGx85BGFYL9cbthLScVWau2OmRh9YElfCLs=";
-      #    };
-      #  in
-      #  {
-      #    inherit src;
-      #    offlineCache = pkgs.fetchYarnDeps {
-      #      yarnLock = "${src}/yarn.lock";
-      #      hash = "sha256-3SMvUx+TwUmOur/50HDLWt0EayY5tst4YANWIlXdiPQ=";
-      #    };
-      #  }
-      #))
+      gale
+      # (r2modman.overrideAttrs rec {
+      #   version = "3.2.13";
+      #   src = pkgs.fetchFromGitHub {
+      #     owner = "ebkr";
+      #     repo = "r2modmanPlus";
+      #     rev = "baaf338e6bdb1ab4020676ed38dd3ca85318171d";
+      #     hash = "sha256-dy+xVGh5VNGXI34ecglLFl/h6SXyUdfzyvLCjXYmC/w=";
+      #   };
+      # })
       keyd # gives access to the userspace keyd tool "keyd-application-mapper", allows for application based remapping in userspace. Can be a security risk.
     ];
 

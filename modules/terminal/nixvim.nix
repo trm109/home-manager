@@ -75,7 +75,8 @@ in
           pkgs.alejandra
           pkgs.biome
           pkgs.black
-          pkgs.nixfmt-rfc-style
+          pkgs.nixfmt
+          #pkgs.dotnet-sdk
         ];
         # extraPlugins = {};
         # extraPython3Packages = {};
@@ -94,6 +95,10 @@ in
             biome.enable = true; # JS, TS, json, css, html, etc.
             nil_ls.enable = true; # nix
             yamlls.enable = true; # yaml
+            csharp_ls = {
+              enable = true; # C#
+              packageFallback = true;
+            };
           };
           #luaConfig = {
           #  pre = "vim.lsp.set_log_level('debug')";
@@ -328,6 +333,14 @@ in
           #       #};
           #     };
           #   };
+          # };
+          # easy-dotnet = {
+          #   enable = true;
+          #   # settings = {
+          #   #   lsp = {
+          #   #     enabled = true;
+          #   #   };
+          #   # };
           # };
         };
         extraPlugins = [
