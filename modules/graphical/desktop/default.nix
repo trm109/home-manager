@@ -52,6 +52,7 @@ in
             "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
             "${pkgs.dbus}/bin/dbus-update-activation-environment --all"
             "${pkgs.systemd}/bin/systemctl --user start hyprpolkitagent"
+            "${pkgs.keyd}/bin/keyd-application-mapper -d"
           ];
           monitor = [
             ", highres, auto, 1"
