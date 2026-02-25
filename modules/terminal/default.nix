@@ -20,8 +20,7 @@ in
   config = lib.mkIf cfg.enable {
     modules.terminal.nixvim.enable = true;
     home.packages = with pkgs; [
-      unrar
-      unzip
+      unar
       btop
       tre-command
       gh
