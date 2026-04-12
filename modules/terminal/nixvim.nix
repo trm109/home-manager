@@ -231,6 +231,10 @@ in
                 use_nvim_cmp_as_default = true;
               };
               completion = {
+                trigger = {
+                  # mostly for minuet performance
+                  prefetch_on_insert = false;
+                };
                 accept = {
                   auto_brackets = {
                     enabled = true;
@@ -277,27 +281,90 @@ in
                   "lsp"
                   "path"
                   "snippets"
-                  "buffer"
+                  # "buffer"
+                  # "minuet"
                 ];
-                providers = {
-                  buffer = {
-                    max_items = 5;
-                    min_keyword_length = 3;
+                # providers = {
+                #   # buffer = {
+                #   #   max_items = 5;
+                #   #   min_keyword_length = 3;
+                #   # };
+                #   minuet = {
+                #     name = "minuet";
+                #     module = "minuet.blink";
+                #     async = true;
+                #     timeout_ms = 3000;
+                #     score_offset = 50;
+                #   };
+                # };
+              };
+            };
+          };
+          # GitHub Copilot
+          # copilot-lua = {
+          #   enable = true;
+          #   settings = {
+          #     suggestion = {
+          #       keymap.accept = "<A-l>";
+          #       auto_trigger = true;
+          #     };
+          #   };
+          # };
+          # LLM Code Completion
+          minuet = {
+            enable = true;
+            settings = {
+              virtualtext = {
+                auto_trigger_ft = [ "*" ];
+                keymap = {
+                  # Accept suggestions
+                  accept = "<A-L>";
+                  # Accept next suggestion line.
+                  accept_line = "<A-l>";
+                  # Cycle suggestion
+                  next = "<A-n>";
+                  prev = "<A-N>";
+                };
+              };
+              provider = "openai_fim_compatible";
+              n_completions = 1;
+              context_window = 512;
+              provider_options = {
+                openai_fim_compatible = {
+                  api_key = "TERM";
+                  name = "Ollama";
+                  end_point = "http://localhost:11434/v1/completions";
+                  model = "qwen2.5-coder:7b";
+                  optional = {
+                    max_tokens = 56;
+                    top_p = 0.9;
                   };
                 };
               };
             };
           };
-          # GitHub Copilot
-          copilot-lua = {
-            enable = true;
-            settings = {
-              suggestion = {
-                keymap.accept = "<A-l>";
-                auto_trigger = true;
-              };
-            };
-          };
+          # provider = 'openai_fim_compatible',
+          #          n_completions = 1, -- recommend for local model for resource saving
+          #            -- I recommend beginning with a small context window size and incrementally
+          #            -- expanding it, depending on your local computing power. A context window
+          #            -- of 512, serves as an good starting point to estimate your computing
+          #            -- power. Once you have a reliable estimate of your local computing power,
+          #          -- you should adjust the context window to a larger value.
+          #            context_window = 512,
+          #          provider_options = {
+          #            openai_fim_compatible = {
+          #              -- For Windows users, TERM may not be present in environment variables.
+          #                -- Consider using APPDATA instead.
+          #                api_key = 'TERM',
+          #              name = 'Ollama',
+          #              end_point = 'http://localhost:11434/v1/completions',
+          #              model = 'qwen2.5-coder:7b',
+          #              optional = {
+          #                max_tokens = 56,
+          #                top_p = 0.9,
+          #              },
+          #            },
+          #          },
           # guess indent
           guess-indent = {
             enable = true;
@@ -320,20 +387,21 @@ in
           git-conflict = {
             enable = true;
           };
-          # Cursor-like ai promopt
-          # avante = {
-          #   enable = true;
-          #   settings = {
-          #     provider = "ollama";
-          #     ollama = {
-          #       endpoint = "localhost:11434";
-          #       model = "qwen2.5-coder:3b";
-          #       #options = {
-          #       #  num_ctx = 16384;
-          #       #};
-          #     };
-          #   };
-          # };
+          # Cursor-like ai prompt
+          avante = {
+            enable = true;
+            settings = {
+              provider = "ollama";
+              providers = {
+                ollama = {
+                  model = "qwen3.5:9b";
+                  is_env_set = ''
+                    require("avante.providers.ollama").check_endpoint_alive
+                  '';
+                };
+              };
+            };
+          };
           # easy-dotnet = {
           #   enable = true;
           #   # settings = {
@@ -341,6 +409,19 @@ in
           #   #     enabled = true;
           #   #   };
           #   # };
+          # };
+          # llm = {
+          #   enable = true;
+          # };
+          # nvim-agent = {
+          #   enable = true;
+          #   # Using ollama
+          #   api = {
+          #     provider = "local";
+          #     base_url = "http://localhost:11434/v1";
+          #     model = "qwen2.5-coder:7b";
+          #     api_key = "nil";
+          #   };
           # };
         };
         extraPlugins = [
@@ -354,6 +435,24 @@ in
               hash = "sha256-IkJ9KRrikJZvijjfqgnJ2/QYAuF8KX2/zFX1oUbE3aI=";
             };
           })
+          # (pkgs.vimUtils.buildVimPlugin {
+          #   name = "nvim-agent";
+          #   src = pkgs.fetchFromGitHub {
+          #     owner = "mikeoz32";
+          #     repo = "nvim-agent";
+          #     rev = "adb1b523f3cc7f18fa56026a5a8bd5a2f6e598c2";
+          #     hash = "sha256-4Mspxjx4UUjrZDsEoDtqZ3RUMGnpPmD1jH83+DVI3Ag=";
+          #   };
+          #   nvimSkipModules = [
+          #     "session_debug"
+          #     "nvim-agent.commands"
+          #     "nvim-agent.ui.session_picker"
+          #     "nvim-agent.ui.chat_nui"
+          #     "nvim-agent.chat"
+          #     "nvim-agent.api.openai"
+          #     "nvim-agent"
+          #   ];
+          # })
           pkgs.vimPlugins.img-clip-nvim
         ];
       };

@@ -25,6 +25,7 @@ in
       krita # Digital painting software
       inkscape # Vector graphics editor
       discord
+      signal-desktop
     ];
     programs = {
       obs-studio = {

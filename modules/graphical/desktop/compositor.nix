@@ -8,19 +8,14 @@ let
   cfg = config.modules.graphical.desktop.compositor;
 in
 {
-  options.modules.graphical.desktop.compositor = {
-    type = lib.mkOption {
-      type = lib.types.enum [
-        "x11"
-        "wayland"
-        null
-      ];
-      default = null;
-      description = "Choose the compositor type for the desktop environment.";
+  options = {
+    modules.graphical.desktop.compositor = {
+      x11.enable = lib.mkEnableOption "Enable X11 session";
+      wayland.enable = lib.mkEnableOption "Enable Wayland session";
     };
   };
   config = lib.mkMerge [
-    (lib.mkIf (cfg.type != null) {
+    (lib.mkIf (cfg.x11.enable || cfg.wayland.enable) {
       # Default, true for both X11 and Wayland
       home = {
         packages = with pkgs; [
@@ -49,8 +44,8 @@ in
         enable = true;
       };
     })
-    (lib.mkIf (cfg.type == "x11") { })
-    (lib.mkIf (cfg.type == "wayland") {
+    (lib.mkIf (cfg.x11.enable) { })
+    (lib.mkIf (cfg.wayland.enable) {
       home = {
         packages = with pkgs; [
           wl-clipboard # Clipboard manager for Wayland
