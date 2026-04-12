@@ -91,6 +91,9 @@ in
             "match:class ^(steam_app).*, no_initial_focus on"
             "match:class ^(steam_app).*, fullscreen on"
 
+            "match:title ^(Steam Big Picture Mode).*, immediate on"
+            "match:title ^(Steam Big Picture Mode).*, fullscreen on"
+
             "match:title ^(BepInExGUI).*, workspace 2"
             "match:title ^(BepInExGUI).*, tile on"
             "match:title ^(BepInExGUI).*, no_initial_focus on"
