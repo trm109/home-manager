@@ -32,45 +32,48 @@ in
       xorg.xwininfo
       yad
       flatpak
-      # (vintagestory.overrideAttrs (prev: {
-      #   version = "1.22.0-rc.5";
-      #   src = pkgs.fetchurl {
-      #     url = "https://cdn.vintagestory.at/gamefiles/unstable/vs_client_linux-x64_1.22.0-rc.5.tar.gz";
-      #     hash = "sha256-MvVH9hgM/mcFJ5l89rrnuIP9QfCB/ApOdaj3ja7IHn8=";
-      #     # hash = lib.fakeHash;
-      #   };
-      #   installPhase = ''
-      #     runHook preInstall
-      #
-      #     mkdir -p $out/share/vintagestory $out/bin $out/share/pixmaps $out/share/fonts/truetype
-      #     cp -r * $out/share/vintagestory
-      #     cp $out/share/vintagestory/assets/game/fonts/*.ttf $out/share/fonts/truetype
-      #
-      #     runHook postInstall
-      #   '';
-      #   preFixup =
-      #     let
-      #       runtimeLibs' = lib.strings.makeLibraryPath prev.runtimeLibs;
-      #       dotnet-runtime_10 = pkgs.dotnetCorePackages.runtime_10_0-bin;
-      #     in
-      #     ''
-      #       makeWrapper ${lib.meta.getExe dotnet-runtime_10} $out/bin/vintagestory \
-      #         --prefix LD_LIBRARY_PATH : "${runtimeLibs'}" \
-      #         --set-default mesa_glthread true \
-      #         --set-default OPENTK_4_USE_WAYLAND 1 \
-      #         --add-flags $out/share/vintagestory/Vintagestory.dll
-      #
-      #       makeWrapper ${lib.meta.getExe dotnet-runtime_10} $out/bin/vintagestory-server \
-      #         --prefix LD_LIBRARY_PATH : "${runtimeLibs'}" \
-      #         --set-default mesa_glthread true \
-      #         --add-flags $out/share/vintagestory/VintagestoryServer.dll
-      #
-      #       find "$out/share/vintagestory/assets/" -not -path "*/fonts/*" -regex ".*/.*[A-Z].*" | while read -r file; do
-      #         local filename="$(basename -- "$file")"
-      #         ln -sf "$filename" "''${file%/*}"/"''${filename,,}"
-      #       done
-      #     '';
-      # }))
+      (vintagestory.overrideAttrs (oldAttrs: {
+        version = "1.22.0";
+        src = pkgs.fetchurl {
+          url = oldAttrs.src.url;
+          hash = "sha256-c90Mb5hyL8StLFrKokAgER/u6l3jhhluP5ErgVs4geI=";
+        };
+        nativeBuildInputs = [
+          makeWrapper
+          copyDesktopItems
+        ];
+        installPhase = ''
+          runHook preInstall
+
+          mkdir -p $out/share/vintagestory $out/bin $out/share/icons/hicolor/512x512/apps $out/share/fonts/truetype
+          cp -r * $out/share/vintagestory
+          install -Dm444 $out/share/vintagestory/assets/gameicon.png $out/share/icons/hicolor/512x512/apps/vintagestory.png
+          cp $out/share/vintagestory/assets/game/fonts/*.ttf $out/share/fonts/truetype
+
+          rm -rvf $out/share/vintagestory/{install,run,server}.sh
+
+          runHook postInstall
+        '';
+        preFixup =
+          builtins.replaceStrings [ "${pkgs.dotnet-runtime_8}" ] [ "${pkgs.dotnet-runtime_10}" ]
+            oldAttrs.preFixup;
+        # preFixup = ''
+        #    makeWrapperArgs+=(--prefix LD_LIBRARY_PATH : "$runtimeLibraryPath")
+        #
+        #    makeWrapper ${lib.meta.getExe pkgs.dotnet-runtime_10} $out/bin/vintagestory \
+        #     "''${makeWrapperArgs[@]}" \
+        #      --add-flags $out/share/vintagestory/Vintagestory.dll
+        #
+        #   makeWrapper ${lib.getExe pkgs.dotnet-runtime_10} $out/bin/vintagestory-server \
+        #     "''${makeWrapperArgs[@]}" \
+        #     --add-flags $out/share/vintagestory/VintagestoryServer.dll
+        #
+        #    find "$out/share/vintagestory/assets/" -not -path "*/fonts/*" -regex ".*/.*[A-Z].*" | while read -r file; do
+        #      local filename="$(basename -- "$file")"
+        #      ln -sf "$filename" "''${file%/*}"/"''${filename,,}"
+        #    done
+        # '';
+      }))
       goverlay # mangohud configuration tool
       (prismlauncher.override {
         jdks = [
