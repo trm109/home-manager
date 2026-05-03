@@ -28,16 +28,20 @@ in
     # Enable the Hyprland desktop environment.
     home = {
       packages = with pkgs; [
-        hyprshot # Screenshot tool for Hyprland
+        #hyprshot # Screenshot tool for Hyprland
         brightnessctl # Screen brightness control
+        rose-pine-hyprcursor
         #upower # TODO laptop only
       ];
       sessionVariables = {
-        HYPRSHOT_DIR = "/home/${config.home.username}/Pictures/Screenshots"; # Set default screenshot directory
+        HYPRSHOT_DIR = "$HOME/Pictures/Screenshots"; # Set default screenshot directory
         HYPRCURSOR_THEME = "rose-pine-hyprcursor"; # Set cursor theme
         DXVK_HDR = 1;
         ENABLE_HDR_WSI = 1;
-        #WAYLAND_DISPLAY = "wayland-0"; # Set Wayland display
+        # HYPRLAND_EXPLICIT_SYNC = 0;
+        # AQ_DRM_DEVICES = "/dev/dri/card1";
+        # AMD_DEBUG = "useaco,checkir";
+        # WAYLAND_DISPLAY = "wayland-0"; # Set Wayland display
       };
     };
     wayland.windowManager.hyprland = {
@@ -81,8 +85,8 @@ in
             #helldivers2.exe
             "match:title .*\.exe, immediate on"
             "match:title .*\.exe, workspace 1"
-            # "match:title .*\.exe, fullscreen on"
-            #"match:title .*helldivers2\.exe, fullscreen on"
+            "match:title .*\.exe, fullscreen on"
+            "match:title .*helldivers2\.exe, fullscreen on"
 
             "match:title .*minecraft.*, immediate on"
 
@@ -160,8 +164,8 @@ in
           "$mainMod, mouse:273, resizewindow"
         ];
         bind = [
-          "$mainMod, S, exec, ${pkgs.hyprshot}/bin/hyprshot -m output" # sc entire screen
-          "$mainMod SHIFT, S, exec, ${pkgs.hyprshot}/bin/hyprshot -m region" # sc region
+          "$mainMod, S, exec, ${pkgs.hyprshot}/bin/hyprshot -m output -o ${config.programs.hyprshot.saveLocation}" # sc entire screen
+          "$mainMod SHIFT, S, exec, ${pkgs.hyprshot}/bin/hyprshot -m region -o ${config.programs.hyprshot.saveLocation}" # sc region
           "$mainMod, K, exec, ${pkgs.ghostty}/bin/ghostty"
           "$mainMod, L, exec, ${pkgs.hyprlock}/bin/hyprlock"
           "$mainMod, Q, killactive"
@@ -201,6 +205,10 @@ in
       };
     };
     programs = {
+      hyprshot = {
+        enable = true;
+        saveLocation = "$HOME/Pictures/Screenshots";
+      };
       quickshell = {
         enable = true;
       };
@@ -267,29 +275,32 @@ in
       #     };
       #   };
       # };
-      cava = {
-        enable = true; # Audio visualizer
-      };
+      # cava = {
+      #   enable = true; # Audio visualizer
+      # };
     };
     services = {
       hyprpaper = {
         enable = true;
         settings = {
-          #preload = /home/saik/Pictures/HDR/crater_town_3440x1440.jpg
-          #preload = /home/saik/Pictures/HDR/crater_town_2560x1440.jpg
-          #
-          #wallpaper = desc:AOC Q27G3XMN, /home/saik/Pictures/HDR/crater_town_2560x1440.jpg
-          #wallpaper = desc:AOC U34G2G4R3, /home/saik/Pictures/HDR/crater_town_3440x1440.jpg
-          preload = [
-            "/home/saik/.config/home-manager/assets/wallpapers/crater_town_2560x1440.jpg"
-            "/home/saik/.config/home-manager/assets/wallpapers/crater_town_3440x1440.jpg"
-          ];
           wallpaper = [
-            # "desc:AOC Q27G3XMN, /home/saik/.config/home-manager/assets/wallpapers/crater_town_2560x1440.jpg"
-            # "desc:AOC U34G2G4R3, /home/saik/.config/home-manager/assets/wallpapers/crater_town_3440x1440.jpg"
-            "desc:AOC U34G2G4R3 0x000045A1, /home/saik/.config/home-manager/assets/wallpapers/crater_town_3440x1440.jpg"
-            "desc:AOC Q27G3XMN 1APQAJA001629, /home/saik/.config/home-manager/assets/wallpapers/crater_town_2560x1440.jpg"
+            {
+              monitor = "desc:AOC U34G2G4R3 0x000045A1";
+              path = "$HOME/.config/home-manager/assets/wallpapers/crater_town_3440x1440.jpg";
+            }
+            {
+              monitor = "desc:AOC Q27G3XMN 1APQAJA001629";
+              path = "$HOME/.config/home-manager/assets/wallpapers/crater_town_2560x1440.jpg";
+            }
           ];
+          # preload = [
+          #   "/home/saik/.config/home-manager/assets/wallpapers/crater_town_2560x1440.jpg"
+          #   "/home/saik/.config/home-manager/assets/wallpapers/crater_town_3440x1440.jpg"
+          # ];
+          # wallpaper = [
+          #   "desc:AOC U34G2G4R3 0x000045A1, /home/saik/.config/home-manager/assets/wallpapers/crater_town_3440x1440.jpg"
+          #   "desc:AOC Q27G3XMN 1APQAJA001629, /home/saik/.config/home-manager/assets/wallpapers/crater_town_2560x1440.jpg"
+          # ];
         };
       };
       hyprpolkitagent = {
