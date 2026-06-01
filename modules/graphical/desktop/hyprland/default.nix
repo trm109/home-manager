@@ -136,7 +136,7 @@ in
         misc = {
           disable_hyprland_logo = true; # Disable Hyprland logo
           # force_default_wallpaper = true; # Force default wallpaper
-          vfr = true;
+          #vfr = true;
           vrr = 1;
           focus_on_activate = true; # Focus on window when activated
           key_press_enables_dpms = true; # wake monitor on key press
@@ -171,7 +171,7 @@ in
           "$mainMod, L, exec, ${pkgs.hyprlock}/bin/hyprlock"
           "$mainMod, Q, killactive"
           "$mainMod, V, togglefloating"
-          "$mainMod, J, togglesplit"
+          "$mainMod, J, layoutmsg, togglesplit"
           "$mainMod, left, movefocus, l"
           "$mainMod, right, movefocus, r"
           "$mainMod, up, movefocus, u"
