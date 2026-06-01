@@ -37,21 +37,21 @@ in
         thunar-archive-plugin # Archive plugin for Thunar
         thunar-volman # Volume management for Thunar
       ];
-      qt = {
-        enable = true;
-        platformTheme.name = "gtk";
-      };
-      gtk = {
-        enable = true;
-        theme = {
-          name = "rose-pine";
-          package = pkgs.rose-pine-gtk-theme;
-        };
-        iconTheme = {
-          name = "oomox-rose-pine";
-          package = pkgs.rose-pine-icon-theme;
-        };
-      };
+      # qt = {
+      #   enable = true;
+      #   #platformTheme.name = "gtk";
+      # };
+      # gtk = {
+      #   enable = true;
+      #   # theme = {
+      #   #   name = "rose-pine";
+      #   #   package = pkgs.rose-pine-gtk-theme;
+      #   # };
+      #   # iconTheme = {
+      #   #   name = "oomox-rose-pine";
+      #   #   package = pkgs.rose-pine-icon-theme;
+      #   # };
+      # };
       programs = {
         ghostty = {
           enable = true;

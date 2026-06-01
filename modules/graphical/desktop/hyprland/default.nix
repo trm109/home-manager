@@ -47,6 +47,7 @@ in
     };
     wayland.windowManager.hyprland = {
       enable = true;
+      configType = "hyprlang"; # TODO convert to lua config.
       xwayland.enable = true; # Enable XWayland for compatibility with X11 applications
       plugins = [ ];
       settings = {
