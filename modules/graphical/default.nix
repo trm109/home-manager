@@ -63,7 +63,7 @@ in
         };
         librewolf = {
           enable = true; # Firefox fork with privacy enhancements
-          package = pkgs.librewolf-bin;
+          # package = pkgs.librewolf-bin;
         };
         # chromium = {
         #   enable = true; # Chromium browser
