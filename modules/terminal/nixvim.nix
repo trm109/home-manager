@@ -384,9 +384,9 @@ in
           };
           # Conflict marker stuff
           # TODO make it a 'conflict handler suite' type thing
-          git-conflict = {
-            enable = true;
-          };
+          # git-conflict = {
+          #   enable = true;
+          # };
           # Cursor-like ai prompt
           avante = {
             enable = true;

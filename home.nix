@@ -14,6 +14,7 @@
     "dotnet-runtime-7.0.20"
     "librewolf-bin-150.0.1-1"
     "librewolf-bin-unwrapped-150.0.1-1"
+    "electron-39.8.10" # Bitwarden desktop
   ];
 
   # This value determines the Home Manager release that your configuration is

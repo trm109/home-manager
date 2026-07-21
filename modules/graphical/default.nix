@@ -39,19 +39,19 @@ in
       ];
       qt = {
         enable = true;
-        platformTheme.name = "gtk";
+        platformTheme.name = "gtk3";
       };
-      gtk = {
-        enable = true;
-        theme = {
-          name = "rose-pine";
-          package = pkgs.rose-pine-gtk-theme;
-        };
-        iconTheme = {
-          name = "oomox-rose-pine";
-          package = pkgs.rose-pine-icon-theme;
-        };
-      };
+      # gtk = {
+      #   enable = true;
+      #   theme = {
+      #     name = "rose-pine";
+      #     package = pkgs.rose-pine-gtk-theme;
+      #   };
+      #   iconTheme = {
+      #     name = "oomox-rose-pine";
+      #     package = pkgs.rose-pine-icon-theme;
+      #   };
+      # };
       programs = {
         ghostty = {
           enable = true;

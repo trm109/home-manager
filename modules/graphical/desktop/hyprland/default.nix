@@ -93,10 +93,12 @@ in
             "match:class ^(steam_app).*, immediate on"
             "match:class ^(steam_app).*, workspace 1"
             "match:class ^(steam_app).*, no_initial_focus on"
-            "match:class ^(steam_app).*, fullscreen on"
+            "match:class ^(steam_app).*, fullscreen off"
+            "match:class ^(steam_app).*, float on"
 
             "match:title ^(Steam Big Picture Mode).*, immediate on"
-            "match:title ^(Steam Big Picture Mode).*, fullscreen on"
+            "match:title ^(Steam Big Picture Mode).*, fullscreen off"
+            "match:title ^(Steam Big Picture Mode).*, float on"
 
             "match:title ^(BepInExGUI).*, workspace 2"
             "match:title ^(BepInExGUI).*, tile on"

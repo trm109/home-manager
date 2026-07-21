@@ -26,6 +26,12 @@
   #scripts.hello.exec = ''
   #  echo hello from $GREET
   #'';
+  scripts = {
+    update.exec = ''
+      nix flake update
+      nix flake check
+    '';
+  };
 
   enterShell = ''
     git fetch

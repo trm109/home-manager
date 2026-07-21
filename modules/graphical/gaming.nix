@@ -25,7 +25,7 @@ in
       protonup-qt # GUI for managing Proton versions
       # vintagestory # Vintage Story game
       teamspeak6-client
-      steamtinkerlaunch
+      #steamtinkerlaunch
       xdotool
       xorg.xprop
       unixtools.xxd
