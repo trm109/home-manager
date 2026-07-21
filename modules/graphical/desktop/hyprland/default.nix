@@ -3,6 +3,7 @@
   config,
   lib,
   formfactor,
+  hostname,
   ...
 }:
 let
@@ -46,6 +47,7 @@ in
     };
     wayland.windowManager.hyprland = {
       enable = true;
+      configType = "hyprlang"; # TODO convert to lua config.
       xwayland.enable = true; # Enable XWayland for compatibility with X11 applications
       plugins = [ ];
       settings = {
@@ -68,7 +70,7 @@ in
           "desc:AOC U34G2G4R3 0x000045A1, 3440x1440@144, 0x0, 1"
           "desc:Hisense Electric Co. Ltd. HISENSE 0x00000001, 1920x1080@60, auto-down, 1"
         ];
-        workspace = [
+        workspace = lib.mkIf (hostname == "viceroy") [
           "2, monitor:desc:AOC Q27G3XMN, default:true"
           "1, monitor:desc:AOC U34G2G4R3, default:true"
           # "name:bedroom, monitor:desc:Hisense Electric Co. Ltd. HISENSE 0x00000001, default:true, gapsout:35"
@@ -137,7 +139,7 @@ in
         misc = {
           disable_hyprland_logo = true; # Disable Hyprland logo
           # force_default_wallpaper = true; # Force default wallpaper
-          vfr = true;
+          #vfr = true;
           vrr = 1;
           focus_on_activate = true; # Focus on window when activated
           key_press_enables_dpms = true; # wake monitor on key press
@@ -172,7 +174,7 @@ in
           "$mainMod, L, exec, ${pkgs.hyprlock}/bin/hyprlock"
           "$mainMod, Q, killactive"
           "$mainMod, V, togglefloating"
-          "$mainMod, J, togglesplit"
+          "$mainMod, J, layoutmsg, togglesplit"
           "$mainMod, left, movefocus, l"
           "$mainMod, right, movefocus, r"
           "$mainMod, up, movefocus, u"

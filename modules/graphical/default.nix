@@ -37,10 +37,10 @@ in
         thunar-archive-plugin # Archive plugin for Thunar
         thunar-volman # Volume management for Thunar
       ];
-      qt = {
-        enable = true;
-        platformTheme.name = "gtk3";
-      };
+      # qt = {
+      #   enable = true;
+      #   platformTheme.name = "gtk3";
+      # };
       # gtk = {
       #   enable = true;
       #   theme = {
@@ -63,7 +63,7 @@ in
         };
         librewolf = {
           enable = true; # Firefox fork with privacy enhancements
-          package = pkgs.librewolf-bin;
+          # package = pkgs.librewolf-bin;
         };
         # chromium = {
         #   enable = true; # Chromium browser

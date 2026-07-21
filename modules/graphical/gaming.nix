@@ -27,9 +27,9 @@ in
       teamspeak6-client
       #steamtinkerlaunch
       xdotool
-      xorg.xprop
+      xprop
+      xwininfo
       unixtools.xxd
-      xorg.xwininfo
       yad
       flatpak
       (vintagestory.overrideAttrs (oldAttrs: {
